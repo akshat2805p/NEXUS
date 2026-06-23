@@ -1,0 +1,135 @@
+/* ── AURORA NOIR DESIGN TOKENS ─────────────────────────── */
+html, body { overflow-x: hidden; width: 100%; }
+:root {
+  /* ─ Backgrounds ─ */
+  --ink:       #050510;
+  --ink2:      #0a0a1a;
+  --ink3:      #10102a;
+  --ink4:      #18183a;
+  --paper:     #f0eef6;
+  --cream:     #e8e6f0;
+
+  /* ─ Aurora Gradient Palette ─ */
+  --indigo:      #6366f1;
+  --indigo-light:#818cf8;
+  --indigo-dark: #4f46e5;
+  --rose:        #ec4899;
+  --rose-light:  #f472b6;
+  --rose-dark:   #db2777;
+  --amber:       #f59e0b;
+  --amber-light: #fbbf24;
+  --cyan:        #22d3ee;
+  --cyan-dark:   #06b6d4;
+
+  /* ─ Primary (replaces old --gold/--blue) ─ */
+  --primary:       var(--indigo);
+  --primary-light:  var(--indigo-light);
+  --primary-dark:   var(--indigo-dark);
+  --primary-glow:   rgba(99,102,241,0.2);
+
+  /* ─ Gradients ─ */
+  --aurora:         linear-gradient(135deg, #6366f1, #a855f7, #ec4899, #f59e0b);
+  --aurora-soft:    linear-gradient(135deg, rgba(99,102,241,0.3), rgba(168,85,247,0.2), rgba(236,72,153,0.15), rgba(245,158,11,0.1));
+  --aurora-subtle:  linear-gradient(135deg, rgba(99,102,241,0.08), rgba(236,72,153,0.04));
+  --aurora-border:  linear-gradient(135deg, rgba(99,102,241,0.5), rgba(168,85,247,0.3), rgba(236,72,153,0.4), rgba(245,158,11,0.3));
+  --mesh-bg:        radial-gradient(ellipse 80% 60% at 20% 10%, rgba(99,102,241,0.08) 0%, transparent 50%),
+                    radial-gradient(ellipse 60% 80% at 80% 80%, rgba(236,72,153,0.06) 0%, transparent 50%),
+                    radial-gradient(ellipse 50% 50% at 50% 50%, rgba(245,158,11,0.03) 0%, transparent 50%);
+
+  /* ─ Text ─ */
+  --dim:       #8b8a9e;
+  --muted:     #4a4960;
+
+  /* ─ Borders ─ */
+  --border:    rgba(255,255,255,0.05);
+  --border2:   rgba(255,255,255,0.08);
+  --border3:   rgba(255,255,255,0.14);
+
+  /* ─ UI Status ─ */
+  --success:   #10b981;
+  --error:     #f43f5e;
+  --warning:   #f59e0b;
+  --info:      #22d3ee;
+  --purple:    #a855f7;
+  --blue:      #6366f1;
+  --green:     #10b981;
+  --red:       #f43f5e;
+  --orange:    #f97316;
+
+  /* ─ Glassmorphism ─ */
+  --glass-bg:      rgba(255,255,255,0.02);
+  --glass-bg2:     rgba(255,255,255,0.04);
+  --glass-bg3:     rgba(255,255,255,0.06);
+  --glass-border:  rgba(255,255,255,0.06);
+  --glass-blur:    24px;
+
+  /* ─ Editor ─ */
+  --editor-bg:      #0d0d1a;
+  --editor-surface: #141428;
+  --editor-border:  #2a2a4a;
+  --editor-text:    #c9d1d9;
+  --editor-comment: #6b6b8a;
+  --editor-keyword: #f472b6;
+  --editor-string:  #818cf8;
+  --editor-number:  #fbbf24;
+  --editor-fn:      #a78bfa;
+
+  /* ─ Spacing ─ */
+  --sp1: 0.25rem;
+  --sp2: 0.5rem;
+  --sp3: 0.75rem;
+  --sp4: 1rem;
+  --sp6: 1.5rem;
+  --sp8: 2rem;
+  --sp12: 3rem;
+  --sp16: 4rem;
+  --sp20: 5rem;
+  --sp24: 6rem;
+  --sp32: 8rem;
+
+  /* ─ Radius ─ */
+  --r1: 4px;
+  --r2: 8px;
+  --r3: 12px;
+  --r4: 16px;
+  --r5: 20px;
+  --r6: 24px;
+  --r-full: 9999px;
+
+  /* ─ Fonts ─ */
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-body:    'Inter', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', 'Fira Code', monospace;
+
+  /* ─ Transitions ─ */
+  --ease:        cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out:    cubic-bezier(0, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --t1: 150ms;
+  --t2: 250ms;
+  --t3: 400ms;
+  --t4: 600ms;
+  --t5: 800ms;
+  --t6: 1200ms;
+
+  /* ─ Shadows ─ */
+  --shadow-sm:   0 2px 8px rgba(0,0,0,0.4);
+  --shadow-md:   0 8px 32px rgba(0,0,0,0.5);
+  --shadow-lg:   0 20px 60px rgba(0,0,0,0.6);
+  --shadow-xl:   0 40px 80px rgba(0,0,0,0.7);
+  --shadow-glow-indigo: 0 0 40px rgba(99,102,241,0.15), 0 0 80px rgba(99,102,241,0.05);
+  --shadow-glow-rose:   0 0 40px rgba(236,72,153,0.12), 0 0 80px rgba(236,72,153,0.04);
+  --shadow-glow-amber:  0 0 40px rgba(245,158,11,0.12), 0 0 80px rgba(245,158,11,0.04);
+  --shadow-glow-aurora: 0 0 60px rgba(99,102,241,0.12), 0 0 40px rgba(236,72,153,0.08);
+
+  /* ─ Old compatibility aliases ─ */
+  --gold: var(--indigo);
+  --gold-dark: var(--indigo-dark);
+  --gold-lite: var(--indigo-light);
+  --gold-glow: var(--primary-glow);
+  --violet: #a855f7;
+  --violet-glow: rgba(168,85,247,0.12);
+  --shadow-gold: var(--shadow-glow-indigo);
+  --shadow-glow: var(--shadow-glow-aurora);
+}

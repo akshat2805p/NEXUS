@@ -1,0 +1,295 @@
+/* ── KEYFRAMES — Aurora Noir System ──────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeLeft {
+  from { opacity: 0; transform: translateX(-60px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeRight {
+  from { opacity: 0; transform: translateX(60px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* ── AURORA GRADIENT ANIMATIONS ─────────────────────────── */
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes meshFloat {
+  0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  25%  { transform: translate(30px, -50px) scale(1.05) rotate(1deg); }
+  50%  { transform: translate(-20px, -80px) scale(0.95) rotate(-1deg); }
+  75%  { transform: translate(-50px, -30px) scale(1.02) rotate(0.5deg); }
+}
+
+@keyframes meshFloat2 {
+  0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  25%  { transform: translate(-40px, 30px) scale(0.95) rotate(-1deg); }
+  50%  { transform: translate(30px, 60px) scale(1.05) rotate(1deg); }
+  75%  { transform: translate(50px, 20px) scale(0.98) rotate(-0.5deg); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-16px); }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-24px) rotate(2deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── BORDER GRADIENT ANIMATION ──────────────────────────── */
+@keyframes borderRotate {
+  from { --border-angle: 0deg; }
+  to   { --border-angle: 360deg; }
+}
+
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(99,102,241,0.1), 0 0 40px rgba(99,102,241,0.05); }
+  50%      { box-shadow: 0 0 30px rgba(99,102,241,0.2), 0 0 60px rgba(99,102,241,0.1); }
+}
+
+@keyframes cardFloat {
+  0%, 100% { transform: translateY(0) rotateX(0) rotateY(0); }
+  50% { transform: translateY(-8px) rotateX(1deg) rotateY(-1deg); }
+}
+
+/* ── SCROLL REVEAL SYSTEM ───────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered delays */
+.reveal-delay-1 { transition-delay: 0.08s; }
+.reveal-delay-2 { transition-delay: 0.16s; }
+.reveal-delay-3 { transition-delay: 0.24s; }
+.reveal-delay-4 { transition-delay: 0.32s; }
+.reveal-delay-5 { transition-delay: 0.4s; }
+.reveal-delay-6 { transition-delay: 0.48s; }
+
+/* Directional reveals */
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-80px);
+  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+}
+.reveal-left.visible { opacity: 1; transform: translateX(0); }
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(80px);
+  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+}
+.reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+}
+.reveal-scale.visible { opacity: 1; transform: scale(1); }
+
+/* Clip-path reveal */
+.reveal-clip {
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 1s var(--ease);
+}
+.reveal-clip.visible {
+  clip-path: inset(0 0 0 0);
+}
+
+/* ── WORD-BY-WORD TEXT REVEAL ────────────────────────────── */
+.text-reveal .word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+  margin-right: 0.3em;
+}
+.text-reveal.visible .word {
+  opacity: 1;
+  transform: translateY(0);
+}
+.text-reveal.visible .word:nth-child(1)  { transition-delay: 0.00s; }
+.text-reveal.visible .word:nth-child(2)  { transition-delay: 0.04s; }
+.text-reveal.visible .word:nth-child(3)  { transition-delay: 0.08s; }
+.text-reveal.visible .word:nth-child(4)  { transition-delay: 0.12s; }
+.text-reveal.visible .word:nth-child(5)  { transition-delay: 0.16s; }
+.text-reveal.visible .word:nth-child(6)  { transition-delay: 0.20s; }
+.text-reveal.visible .word:nth-child(7)  { transition-delay: 0.24s; }
+.text-reveal.visible .word:nth-child(8)  { transition-delay: 0.28s; }
+.text-reveal.visible .word:nth-child(9)  { transition-delay: 0.32s; }
+.text-reveal.visible .word:nth-child(10) { transition-delay: 0.36s; }
+.text-reveal.visible .word:nth-child(11) { transition-delay: 0.40s; }
+.text-reveal.visible .word:nth-child(12) { transition-delay: 0.44s; }
+.text-reveal.visible .word:nth-child(13) { transition-delay: 0.48s; }
+.text-reveal.visible .word:nth-child(14) { transition-delay: 0.52s; }
+.text-reveal.visible .word:nth-child(15) { transition-delay: 0.56s; }
+
+/* Scroll-driven word reveal colors */
+.scroll-text-content h2 .word {
+  color: rgba(240,238,246,0.15);
+  transition: color 0.4s var(--ease), text-shadow 0.4s var(--ease);
+}
+.scroll-text-content h2 .word.active {
+  color: var(--paper);
+  text-shadow: 0 0 30px rgba(99,102,241,0.3);
+}
+.scroll-text-content h2 em .word.active {
+  color: var(--indigo-light);
+  text-shadow: 0 0 30px rgba(99,102,241,0.5);
+  font-style: normal;
+}
+
+/* ── LINE REVEAL ─────────────────────────────────────────── */
+.line-reveal {
+  overflow: hidden;
+}
+.line-reveal .line-inner {
+  transform: translateY(110%);
+  transition: transform 0.7s var(--ease);
+}
+.line-reveal.visible .line-inner {
+  transform: translateY(0);
+}
+
+/* ── PARALLAX HELPERS ────────────────────────────────────── */
+.parallax-slow { will-change: transform; }
+.parallax-fast { will-change: transform; }
+
+/* ── SPINNER ─────────────────────────────────────────────── */
+.spinner {
+  width: 18px; height: 18px;
+  border: 2px solid rgba(99,102,241,0.2);
+  border-top-color: var(--indigo);
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+  flex-shrink: 0;
+}
+
+/* ── TYPING CURSOR ───────────────────────────────────────── */
+.typing-cursor::after {
+  content: '|';
+  animation: blink .8s step-end infinite;
+  color: var(--indigo);
+  margin-left: 2px;
+  font-weight: 300;
+}
+
+/* ── MAGNETIC BUTTON ─────────────────────────────────────── */
+.magnetic-btn {
+  transition: transform 0.3s var(--ease);
+  position: relative;
+  overflow: hidden;
+}
+.magnetic-btn::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: var(--aurora);
+  opacity: 0;
+  filter: blur(12px);
+  z-index: -1;
+  transition: opacity 0.4s;
+}
+.magnetic-btn:hover::after {
+  opacity: 0.4;
+}
+
+/* ── GRADIENT TEXT ────────────────────────────────────────── */
+.gradient-text,
+.text-gradient {
+  background: var(--aurora);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 6s ease infinite;
+}
+
+/* ── AURORA GLOW CARD ────────────────────────────────────── */
+.aurora-glow {
+  position: relative;
+}
+.aurora-glow::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: var(--aurora-border);
+  background-size: 300% 300%;
+  animation: gradientShift 6s ease infinite;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+.aurora-glow:hover::before {
+  opacity: 1;
+}
+
+/* ── 3D TILT PERSPECTIVE ─────────────────────────────────── */
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.5s var(--ease);
+}
+
+/* ── STAGGER CASCADE ─────────────────────────────────────── */
+.stagger-cascade > * {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+}
+.stagger-cascade.visible > *:nth-child(1) { transition-delay: 0s; opacity: 1; transform: none; }
+.stagger-cascade.visible > *:nth-child(2) { transition-delay: 0.1s; opacity: 1; transform: none; }
+.stagger-cascade.visible > *:nth-child(3) { transition-delay: 0.2s; opacity: 1; transform: none; }
+.stagger-cascade.visible > *:nth-child(4) { transition-delay: 0.3s; opacity: 1; transform: none; }
+.stagger-cascade.visible > *:nth-child(5) { transition-delay: 0.4s; opacity: 1; transform: none; }
+.stagger-cascade.visible > *:nth-child(6) { transition-delay: 0.5s; opacity: 1; transform: none; }

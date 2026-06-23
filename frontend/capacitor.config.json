@@ -1,0 +1,28 @@
+{
+  "appId": "com.nexus.fintech",
+  "appName": "Nexus",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  },
+  "ios": {
+    "contentInset": "automatic"
+  },
+  "plugins": {
+    "App": {},
+    "Camera": {
+      "provider": "custom"
+    },
+    "Geolocation": {},
+    "Network": {},
+    "Device": {},
+    "Filesystem": {},
+    "NativeAudio": {},
+    "StatusBar": {
+      "style": "light"
+    },
+    "Keyboard": {
+      "resize": "body"
+    }
+  }
+}

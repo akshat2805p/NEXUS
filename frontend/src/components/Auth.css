@@ -1,0 +1,391 @@
+/* ─── Auth CSS — Nexus Cream Theme ─── */
+:root {
+  --bg-primary:    #FEFCF8;
+  --bg-secondary:  #F7F4EF;
+  --bg-tertiary:   #EDE8DF;
+  --border-color:  #E5DDD4;
+  --text-primary:  #1A1A1A;
+  --text-secondary:#5C5C5C;
+  --text-muted:    #A0A0A0;
+  --accent-primary: #C8956C;
+  --accent-secondary: #B07B52;
+  --accent-light:  rgba(200, 149, 108, 0.12);
+  --shadow-sm:  0 2px 8px rgba(0,0,0,0.08);
+  --shadow-md:  0 8px 32px rgba(0,0,0,0.12);
+}
+
+/* ─── Container ─── */
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  background: linear-gradient(150deg, #FEFCF8 0%, #F0E9DC 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative background blobs */
+.auth-container::before,
+.auth-container::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.auth-container::before {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(200,149,108,0.15), transparent 70%);
+  top: -100px; right: -100px;
+}
+.auth-container::after {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(212,175,55,0.10), transparent 70%);
+  bottom: -80px; left: -80px;
+}
+
+/* ─── Left Branding Panel (desktop only) ─── */
+.auth-brand-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 60px 80px;
+  background: linear-gradient(145deg, #C8956C 0%, #B07B52 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+@media (max-width: 900px) {
+  .auth-brand-panel { display: none; }
+}
+
+.auth-brand-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FFFFFF' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.auth-brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 48px;
+}
+
+.auth-brand-icon {
+  width: 48px; height: 48px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  backdrop-filter: blur(10px);
+}
+
+.auth-brand-name {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: white;
+  letter-spacing: -0.5px;
+}
+
+.auth-brand-tagline {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: white;
+  line-height: 1.25;
+  letter-spacing: -1px;
+  margin-bottom: 20px;
+}
+
+.auth-brand-sub {
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.7;
+  max-width: 380px;
+}
+
+.auth-brand-features {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.auth-brand-feature {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba(255,255,255,0.9);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.auth-brand-feature-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.6);
+  flex-shrink: 0;
+}
+
+/* ─── Right Auth Panel ─── */
+.auth-form-panel {
+  width: 480px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 48px;
+  background: white;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 900px) {
+  .auth-form-panel {
+    width: 100%;
+    min-height: 100vh;
+    padding: 40px 24px;
+    box-shadow: none;
+  }
+}
+
+.auth-form-inner {
+  width: 100%;
+  max-width: 360px;
+  animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ─── Logo (mobile) ─── */
+.auth-logo-mobile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+
+@media (min-width: 900px) {
+  .auth-logo-mobile { display: none; }
+}
+
+.auth-logo-icon {
+  width: 40px; height: 40px;
+  background: var(--accent-primary);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  color: white;
+}
+
+.auth-logo-text {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
+}
+
+/* ─── Mode Tabs (Sign In / Sign Up) ─── */
+.auth-tabs {
+  display: flex;
+  background: var(--bg-secondary);
+  border-radius: 10px;
+  padding: 4px;
+  margin-bottom: 28px;
+  gap: 4px;
+}
+
+.auth-tab {
+  flex: 1;
+  padding: 9px;
+  border-radius: 7px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.auth-tab.active {
+  background: white;
+  color: var(--text-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ─── Header ─── */
+.auth-header {
+  margin-bottom: 24px;
+}
+
+.auth-header h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
+  margin-bottom: 6px;
+}
+
+.auth-header p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+/* ─── Form ─── */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.auth-field label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ─── Phone Row ─── */
+.phone-row {
+  display: flex;
+  gap: 8px;
+}
+
+.country-code-select {
+  width: 100px;
+  flex-shrink: 0;
+  font-size: 0.9rem;
+}
+
+/* ─── Submit button ─── */
+.auth-submit {
+  background: var(--accent-primary);
+  color: white;
+  padding: 13px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  width: 100%;
+  margin-top: 4px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.auth-submit:hover:not(:disabled) {
+  background: var(--accent-secondary);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.auth-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ─── Messages ─── */
+.error-message {
+  background: rgba(217, 48, 37, 0.08);
+  border: 1px solid rgba(217, 48, 37, 0.25);
+  color: #B71C1C;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  animation: slide-down 0.25s ease;
+}
+
+.success-message {
+  background: rgba(45, 158, 92, 0.08);
+  border: 1px solid rgba(45, 158, 92, 0.25);
+  color: #1B5E20;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  animation: slide-down 0.25s ease;
+}
+
+/* ─── Back Link ─── */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+  transition: color 0.2s;
+}
+
+.back-link:hover {
+  color: var(--accent-primary);
+}
+
+/* ─── OTP Box ─── */
+.otp-hint {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+.otp-highlight {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* ─── Footer ─── */
+.auth-footer {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* ─── Divider ─── */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  margin: 4px 0;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border-color);
+}
+
+/* ─── Skip link ─── */
+.auth-skip {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 4px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s;
+}
+
+.auth-skip:hover {
+  color: var(--accent-primary);
+}

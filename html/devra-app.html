@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DevRA — AI Workflow Automation</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='28'>⚡</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,700&family=Outfit:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap"
+    rel="stylesheet" />
+  <!-- Consolidated CSS -->
+  <link rel="stylesheet" href="../css/devra-variables.css" />
+  <link rel="stylesheet" href="../css/devra-reset.css" />
+  <link rel="stylesheet" href="../css/devra-animations.css" />
+  <link rel="stylesheet" href="../css/devra-loader.css" />
+  <link rel="stylesheet" href="../css/devra-nav.css" />
+  <link rel="stylesheet" href="../css/devra-hero.css" />
+  <link rel="stylesheet" href="../css/devra-sections.css" />
+  <link rel="stylesheet" href="../css/devra-auth.css" />
+  <link rel="stylesheet" href="../css/devra-dashboard.css" />
+  <link rel="stylesheet" href="../css/devra-editor.css" />
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+</head>
+
+<body>
+
+  <!-- CURSOR -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring-container">
+    <div class="cursor-ring-orbit orbit-1"></div>
+    <div class="cursor-ring-orbit orbit-2"></div>
+    <div class="cursor-ring-orbit orbit-3"></div>
+  </div>
+
+  <!-- LOADER -->
+  <div id="loader">
+    <div class="ld-logo">DevRA</div>
+    <div class="ld-sub">AI Workflow Automation</div>
+    <div class="ld-bar-track">
+      <div class="ld-bar-fill" id="ldBar"></div>
+    </div>
+    <div class="ld-pct" id="ldPct">0%</div>
+  </div>
+
+  <!-- SCROLL PROGRESS -->
+  <div id="scroll-progress"></div>
+
+  <!-- TOAST -->
+  <div id="toast" class="toast hidden"></div>
+
+  <!-- AUTH MODAL -->
+  <div id="auth-overlay" class="hidden">
+    <div id="auth-modal">
+      <button class="auth-close" id="authClose">✕</button>
+      <div class="auth-logo">DevRA</div>
+      <div class="auth-tabs" id="authTabsHeader">
+        <button class="auth-tab active" data-tab="login">Sign In</button>
+        <button class="auth-tab" data-tab="signup">Sign Up</button>
+      </div>
+      <div class="auth-socials" id="authSocialsArea">
+        <button class="social-btn google-btn" id="btnGoogle">
+          <svg class="social-icon" viewBox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/>
+            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/>
+          </svg>
+          <span>Continue with Google</span>
+        </button>
+        <button class="social-btn github-btn" id="btnGitHub">
+          <svg class="social-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.577.688.479C19.138 20.162 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+          </svg>
+          <span>Continue with GitHub</span>
+        </button>
+        <button class="social-btn gitlab-btn" id="btnGitLab">
+          <svg class="social-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+            <path d="M22.65 14.39L12 22.13L1.35 14.39c-.39-.28-.55-.78-.4-1.24L3.62 5.24c.15-.46.58-.77 1.06-.77h.03c.53 0 .99.35 1.13.86L8 12.13h8l2.16-6.8c.14-.51.6-.86 1.13-.86h.03c.48 0 .91.31 1.06.77l2.67 7.91c.15.46-.01.96-.4 1.24z" fill="#FC6D26"/>
+            <path d="M12 22.13l4-10h-8l4 10z" fill="#E24329"/>
+            <path d="M8 12.13H1.35c-.39-.28-.55-.78-.4-1.24L3.62 5.24c.15-.46.58-.77 1.06-.77h.03c.53 0 .99.35 1.13.86L8 12.13z" fill="#FC6D26"/>
+            <path d="M16 12.13h6.65c.39-.28.55-.78.4-1.24l-2.67-7.91c-.15-.46-.58-.77-1.06-.77h-.03c-.53 0-.99.35-1.13.86l-2.16 6.8z" fill="#FCA326"/>
+          </svg>
+          <span>Continue with GitLab</span>
+        </button>
+      </div>
+      <div class="auth-divider" id="authSocialsDivider"><span>or</span></div>
+      <div id="authFormLogin" class="auth-form">
+        <input type="email" class="auth-input" id="loginEmail" placeholder="Email address" />
+        <input type="password" class="auth-input" id="loginPass" placeholder="Password" />
+        <button class="auth-submit" id="btnEmailLogin">Sign In</button>
+        <div class="auth-hint">No account? <a href="#" onclick="switchTab('signup');return false;">Sign up free</a>
+        </div>
+      </div>
+      <div id="authFormSignup" class="auth-form hidden">
+        <input type="text" class="auth-input" id="signupName" placeholder="Full name" />
+        <input type="email" class="auth-input" id="signupEmail" placeholder="Email address" />
+        <input type="password" class="auth-input" id="signupPass" placeholder="Password (min 8 chars)" />
+        <button class="auth-submit" id="btnEmailSignup">Create Account</button>
+        <div class="auth-hint">Have an account? <a href="#" onclick="switchTab('login');return false;">Sign in</a></div>
+      </div>
+      <!-- REAL-TIME GIT CONNECT PANEL -->
+      <div id="authTokenPanel" class="auth-form hidden">
+        <div class="token-title-row">
+          <span class="token-icon" id="tokenProviderIcon">🐙</span>
+          <span class="token-title" id="tokenPanelTitle">GitHub Connect</span>
+        </div>
+        <p class="token-desc" id="tokenPanelDesc">
+          Enter your GitHub Personal Access Token (PAT) with <code>repo</code> scope to fetch your real-time profile and files.
+        </p>
+        <input type="password" class="auth-input" id="authTokenInput" placeholder="ghp_..." />
+        <button class="auth-submit" id="btnTokenVerify">Verify & Sign In</button>
+        <button class="social-btn" style="border-color:transparent; margin-top:.4rem; width:100%;" id="btnTokenDemo">Use Demo Account</button>
+        <div class="auth-hint"><a href="#" id="btnTokenBack">← Back to Social Sign In</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="dashboard" class="hidden">
+    <div id="dash-sidebar">
+      <div class="dash-logo">DevRA</div>
+      <div class="dash-user-card">
+        <div class="dash-avatar" id="dashAvatar">?</div>
+        <div class="dash-user-info">
+          <div class="dash-username" id="dashUsername">User</div>
+          <div class="dash-useremail" id="dashUserEmail">user@email.com</div>
+        </div>
+      </div>
+      <nav class="dash-nav">
+        <button class="dash-nav-item active" data-panel="files">📁 Files</button>
+        <button class="dash-nav-item" data-panel="editor">⚡ Editor</button>
+        <button class="dash-nav-item" data-panel="git">🐙 Git</button>
+        <button class="dash-nav-item" data-panel="workflows">🔁 Workflows</button>
+      </nav>
+      <button class="dash-logout" id="btnLogout">↩ Sign Out</button>
+    </div>
+
+    <div id="dash-main">
+      <!-- FILES PANEL -->
+      <div class="dash-panel active" id="panel-files">
+        <div class="panel-header">
+          <h2 class="panel-title">Your Files</h2>
+          <div class="panel-actions">
+            <button class="action-btn primary" id="btnUpload">⬆ Upload Files</button>
+            <input type="file" id="fileInput" multiple style="display:none" />
+            <button class="action-btn" id="btnNewFile">+ New File</button>
+          </div>
+        </div>
+        <div id="dropZone" class="drop-zone">
+          <div class="drop-icon">📂</div>
+          <div class="drop-text">Drop files here or click <strong>Upload Files</strong></div>
+          <div class="drop-sub">Supports .js .ts .tsx .jsx .html .css .py .json .md and more</div>
+        </div>
+        <div id="fileList" class="file-list hidden"></div>
+      </div>
+
+      <!-- EDITOR PANEL -->
+      <div class="dash-panel" id="panel-editor">
+        <div class="editor-layout">
+          <div class="editor-sidebar">
+            <div class="esb-title">Files</div>
+            <div id="editorFileTree" class="file-tree"></div>
+          </div>
+          <div class="editor-center">
+            <div class="editor-tabs" id="editorTabs"></div>
+            <div class="editor-toolbar">
+              <button class="tool-btn primary" id="btnRun">▶ Run</button>
+              <button class="tool-btn" id="btnFixBugs">🧠 Fix Bugs</button>
+              <button class="tool-btn" id="btnFormat">✨ Format</button>
+              <button class="tool-btn danger" id="btnClearOutput">✕ Clear</button>
+              <span class="editor-lang" id="editorLang">—</span>
+            </div>
+            <div class="code-editor-wrap">
+              <div class="line-numbers" id="lineNumbers">1</div>
+              <textarea id="codeEditor" class="code-editor" spellcheck="false"
+                placeholder="Open a file or paste code here..."></textarea>
+            </div>
+          </div>
+          <div class="editor-output">
+            <div class="output-header">
+              <span>Output</span>
+              <span class="output-status" id="outputStatus">Ready</span>
+            </div>
+            <div id="outputConsole" class="output-console">
+              <div class="console-welcome">// DevRA Editor — Ready</div>
+            </div>
+            <div id="aiFix" class="ai-fix hidden">
+              <div class="ai-fix-header">🧠 AI Bug Fixer</div>
+              <div class="ai-fix-body" id="aiFixBody"></div>
+              <div class="ai-fix-actions">
+                <button class="tool-btn primary" id="btnApplyFix">✓ Apply</button>
+                <button class="tool-btn" id="btnDismissFix">✕ Dismiss</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GIT PANEL -->
+      <div class="dash-panel" id="panel-git">
+        <div class="panel-header">
+          <h2 class="panel-title">Git Integration</h2>
+        </div>
+        <div class="git-layout">
+          <div class="git-section">
+            <div class="git-section-title">Accounts</div>
+            <div class="git-providers">
+              <div class="git-provider">
+                <div class="provider-icon github">🐙</div>
+                <div>
+                  <div class="provider-name">GitHub</div>
+                  <div class="provider-status" id="ghStatus">Not connected</div>
+                </div>
+                <button class="provider-btn" id="connectGitHub">Connect</button>
+              </div>
+              <div class="git-provider">
+                <div class="provider-icon gitlab">🦊</div>
+                <div>
+                  <div class="provider-name">GitLab</div>
+                  <div class="provider-status" id="glStatus">Not connected</div>
+                </div>
+                <button class="provider-btn" id="connectGitLab">Connect</button>
+              </div>
+            </div>
+          </div>
+          <div class="git-section">
+            <div class="git-section-title">Repository</div>
+            <div class="git-repo-row">
+              <input class="git-input" id="repoOwner" placeholder="owner / username" />
+              <span class="git-sep">/</span>
+              <input class="git-input" id="repoName" placeholder="repository-name" />
+              <button class="action-btn" id="btnLoadRepo">Load Repo</button>
+            </div>
+            <div class="git-repo-row" style="margin-top:.6rem">
+              <input class="git-input" style="flex:0 0 140px" id="repoBranch" placeholder="Branch" value="main" />
+              <input class="git-input" id="githubToken" placeholder="Personal Access Token" type="password" />
+            </div>
+          </div>
+          <div class="git-section">
+            <div class="git-section-title">Commit</div>
+            <div id="changedFiles" class="changed-files">
+              <div class="no-changes">No changed files yet.</div>
+            </div>
+            <textarea class="commit-msg" id="commitMsg" placeholder="Commit message"></textarea>
+            <div class="commit-actions">
+              <button class="action-btn primary" id="btnCommit">🚀 Commit & Push</button>
+              <button class="action-btn" id="btnStageAll">Stage All</button>
+            </div>
+            <div id="commitLog" class="commit-log"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WORKFLOWS PANEL -->
+      <div class="dash-panel" id="panel-workflows">
+        <div class="panel-header">
+          <h2 class="panel-title">Workflows</h2>
+          <button class="action-btn primary" onclick="showToast('Workflow builder coming soon! 🚀')">+ New</button>
+        </div>
+        <div class="workflows-grid">
+          <div class="workflow-card">
+            <div class="wf-icon">🌅</div>
+            <div class="wf-name">Morning Routine</div>
+            <div class="wf-status active">● Active</div>
+          </div>
+          <div class="workflow-card">
+            <div class="wf-icon">📧</div>
+            <div class="wf-name">Email Digest</div>
+            <div class="wf-status active">● Active</div>
+          </div>
+          <div class="workflow-card add-card">
+            <div class="wf-icon">+</div>
+            <div class="wf-name">Add Workflow</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LANDING PAGE -->
+  <div id="landing">
+    <!-- NAV -->
+    <nav id="mainNav">
+      <a href="#" class="nav-logo">DevRA</a>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+      </ul>
+      <div class="nav-right">
+        <button class="btn-ghost-nav" id="btnSignIn">Sign In</button>
+        <button class="btn-primary-nav" id="btnGetStarted">Get Started</button>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <section id="hero">
+      <canvas id="heroCanvas"></canvas>
+      <div class="hero-bg-glow"></div>
+      <div class="hero-content">
+        <div class="hero-eyebrow">✦ AI Workflow Automation</div>
+        <h1 class="hero-title">We give your time <em>back.</em></h1>
+        <p class="hero-sub">DevRA automates your repetitive work — so you focus on what matters.</p>
+        <div class="hero-cta">
+          <button class="btn-primary-hero" id="heroGetStarted">Start Free →</button>
+          <button class="btn-ghost-hero"
+            onclick="document.getElementById('editor-section').scrollIntoView({behavior:'smooth'})">Try Editor</button>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><span class="hs-num">127+</span><span class="hs-label">Integrations</span></div>
+          <div class="hero-divider"></div>
+          <div class="hero-stat"><span class="hs-num">4.2M</span><span class="hs-label">Daily Runs</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="features">
+      <div class="section-container">
+        <h2 class="section-title">Built for <em>humans.</em></h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="fc-icon">🧠</div>
+            <h3 class="fc-name">AI Copilot</h3>
+            <p class="fc-desc">Describe in plain English. AI builds workflows instantly.</p>
+          </div>
+          <div class="feature-card">
+            <div class="fc-icon">🎨</div>
+            <h3 class="fc-name">Zero-Code</h3>
+            <p class="fc-desc">Drag, drop, connect. Visual builder anyone can master.</p>
+          </div>
+          <div class="feature-card">
+            <div class="fc-icon">⚡</div>
+            <h3 class="fc-name">Smart Triggers</h3>
+            <p class="fc-desc">200+ context signals. Workflows fire exactly when needed.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDITOR SECTION -->
+    <section id="editor-section">
+      <div class="section-container">
+        <h2 class="section-title">Built-in Code <em>Editor</em></h2>
+        <p class="section-body">Upload, edit, run, fix & commit. All in the browser.</p>
+        <button class="btn-primary-hero" id="tryEditorBtn">Open Editor →</button>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section id="stats">
+      <div class="stats-container">
+        <div class="stat-item">
+          <div class="si-num" data-target="127">0</div>
+          <div class="si-label">Apps</div>
+        </div>
+        <div class="stat-item">
+          <div class="si-num" data-target="4200000">0</div>
+          <div class="si-label">Runs Daily</div>
+        </div>
+        <div class="stat-item">
+          <div class="si-num" data-target="12">0</div>
+          <div class="si-label">Hours Saved/Week</div>
+        </div>
+        <div class="stat-item">
+          <div class="si-num" data-target="50000">0</div>
+          <div class="si-label">Users</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing">
+      <div class="section-container">
+        <h2 class="section-title">Simple <em>Pricing</em></h2>
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <div class="pc-plan">Starter</div>
+            <div class="pc-price"><sup>₹</sup>0<span>/mo</span></div>
+            <p class="pc-desc">Perfect for exploring.</p>
+            <ul class="pc-features">
+              <li>5 workflows</li>
+              <li>500 runs/mo</li>
+              <li>15 apps</li>
+            </ul>
+            <button class="pc-btn pc-btn-ghost" onclick="openAuth()">Get Started</button>
+          </div>
+          <div class="pricing-card featured">
+            <div class="pc-badge">Popular</div>
+            <div class="pc-plan">Pro</div>
+            <div class="pc-price gold"><sup>₹</sup>499<span>/mo</span></div>
+            <p class="pc-desc">For power users.</p>
+            <ul class="pc-features">
+              <li>Unlimited workflows</li>
+              <li>50k runs/mo</li>
+              <li>127+ apps</li>
+              <li>AI Copilot</li>
+            </ul>
+            <button class="pc-btn pc-btn-solid" onclick="openAuth()">Start Trial</button>
+          </div>
+          <div class="pricing-card">
+            <div class="pc-plan">Teams</div>
+            <div class="pc-price"><sup>₹</sup>1,499<span>/mo</span></div>
+            <p class="pc-desc">For teams.</p>
+            <ul class="pc-features">
+              <li>Everything in Pro</li>
+              <li>5 members</li>
+              <li>Shared workflows</li>
+            </ul>
+            <button class="pc-btn pc-btn-ghost" onclick="openAuth()">Start Trial</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REVIEWS -->
+    <section id="reviews">
+      <div class="section-container">
+        <h2 class="section-title"><em>Real</em> people. Real results.</h2>
+        <div class="reviews-grid">
+          <div class="review-card">
+            <div class="rv-stars">★★★★★</div>
+            <p class="rv-text">"DevRA saves me 2 hours daily. It's like a PA that never sleeps."</p>
+            <div class="rv-author">
+              <div class="rv-av">PR</div>
+              <div>
+                <div class="rv-name">Priya Rajan</div>
+              </div>
+            </div>
+          </div>
+          <div class="review-card">
+            <div class="rv-stars">★★★★★</div>
+            <p class="rv-text">"Connected Gmail, Notion, Calendar in 10 minutes with zero code."</p>
+            <div class="rv-author">
+              <div class="rv-av">AK</div>
+              <div>
+                <div class="rv-name">Arjun Khanna</div>
+              </div>
+            </div>
+          </div>
+          <div class="review-card">
+            <div class="rv-stars">★★★★★</div>
+            <p class="rv-text">"The AI Copilot is magic. I typed what I wanted and it built everything."</p>
+            <div class="rv-author">
+              <div class="rv-av">SS</div>
+              <div>
+                <div class="rv-name">Sneha Sharma</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="cta-section">
+      <canvas id="ctaCanvas"></canvas>
+      <div class="cta-content">
+        <h2 class="cta-title">Start automating <em>today.</em></h2>
+        <p class="cta-sub">Free forever. No credit card required.</p>
+        <button class="btn-primary-hero" onclick="openAuth()">Get Started →</button>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="footer">
+      <div class="footer-inner">
+        <div>
+          <div class="footer-logo">DevRA</div>
+          <p class="footer-tagline">AI-powered automation built for humans.</p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Product</div>
+          <ul>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Company</div>
+          <ul>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Legal</div>
+          <ul>
+            <li><a href="#">Privacy</a></li>
+            <li><a href="#">Terms</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 DevRA. Built with ♥ for the time-poor world</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- JavaScript Modules -->
+  <script src="../js/devra-state.js"></script>
+  <script src="../js/devra-auth.js"></script>
+  <script src="../js/devra-ui.js"></script>
+  <script src="../js/devra-editor.js"></script>
+  <script src="../js/devra-git.js"></script>
+  <script src="../js/devra-canvas.js"></script>
+  <script src="../js/devra-compiler.js"></script>
+  <script src="../js/devra-main.js"></script>
+</body>
+
+</html>

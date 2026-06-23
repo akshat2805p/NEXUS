@@ -1,0 +1,52 @@
+{
+  "name": "nexus-mobile",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Nexus - Fintech Chat & Messaging App",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "cap:add:ios": "cap add ios",
+    "cap:add:android": "cap add android",
+    "cap:build": "npm run build && cap copy",
+    "cap:sync": "npm run build && cap sync",
+    "cap:open:ios": "cap open ios",
+    "cap:open:android": "cap open android",
+    "cap:live": "ionic capacitor run ios -l --host=YOUR_IP"
+  },
+  "dependencies": {
+    "@simplewebauthn/browser": "^13.3.0",
+    "@capacitor/core": "^6.0.0",
+    "@capacitor/app": "^6.0.0",
+    "@capacitor/camera": "^6.0.0",
+    "@capacitor/geolocation": "^6.0.0",
+    "@capacitor/network": "^6.0.0",
+    "@capacitor/device": "^6.0.0",
+    "@capacitor/filesystem": "^6.0.0",
+    "@capacitor/status-bar": "^6.0.0",
+    "@capacitor/keyboard": "^6.0.0",
+    "emoji-picker-react": "^4.19.1",
+    "lucide-react": "^1.14.0",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^24.12.2",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-basic-ssl": "^2.3.0",
+    "@vitejs/plugin-react": "^6.0.1",
+    "@capacitor/cli": "^6.0.0",
+    "eslint": "^10.2.1",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.5.0",
+    "typescript": "~6.0.2",
+    "typescript-eslint": "^8.58.2",
+    "vite": "^8.0.10"
+  }
+}
+

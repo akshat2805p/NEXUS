@@ -1,0 +1,44 @@
+# Build directories
+dist/
+build/
+out/
+
+# Dependencies
+node_modules/
+go.sum
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+*.log
+logs/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+
+# Compiled
+*.o
+*.a
+*.so
+nexus-backend
+
+# Dist
+dist/
+
+# Cache
+.cache/
+.git/

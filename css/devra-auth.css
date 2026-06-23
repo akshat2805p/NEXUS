@@ -1,0 +1,122 @@
+/* ── AUTH OVERLAY ────────────────────────────────────────── */
+#auth-overlay {
+  position: fixed; inset: 0; z-index: 7500;
+  background: rgba(0,0,0,.75);
+  backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  animation: fadeIn .25s var(--ease);
+}
+#auth-modal {
+  background: var(--ink2);
+  border: 1px solid var(--border2);
+  border-radius: var(--r4);
+  padding: 2.8rem 2.5rem;
+  width: min(460px, 96vw);
+  position: relative;
+  animation: modalIn .35s var(--ease-out);
+  box-shadow: 0 40px 80px rgba(0,0,0,.7);
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(24px) scale(.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.auth-close {
+  position: absolute; top: 1.2rem; right: 1.4rem;
+  font-size: 1rem; color: var(--dim);
+  transition: color var(--t2);
+}
+.auth-close:hover { color: var(--paper); }
+.auth-logo {
+  font-family: var(--font-display); font-size: 1.6rem; font-weight: 300;
+  letter-spacing: .18em; color: var(--blue); text-align: center;
+  margin-bottom: 1.8rem;
+}
+.auth-tabs {
+  display: flex; border-bottom: 1px solid var(--border);
+  margin-bottom: 1.8rem;
+}
+.auth-tab {
+  flex: 1; padding: .7rem; font-size: .78rem; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--dim); border-bottom: 2px solid transparent; margin-bottom: -1px;
+  transition: color var(--t2), border-color var(--t2);
+}
+.auth-tab.active { color: var(--blue); border-bottom-color: var(--blue); }
+.auth-socials { display: flex; flex-direction: column; gap: .75rem; margin-bottom: 1.4rem; }
+.social-btn {
+  display: flex; align-items: center; justify-content: center; gap: .8rem;
+  padding: .85rem 1.2rem;
+  border: 1px solid var(--border2); border-radius: var(--r2);
+  font-size: .82rem; font-weight: 400; color: var(--paper);
+  transition: background var(--t2), border-color var(--t2), transform var(--t2);
+}
+.social-btn:hover { transform: translateY(-1px); }
+.google-btn:hover  { border-color: #EA4335; background: rgba(234,67,53,.06); }
+.github-btn:hover  { border-color: rgba(244,240,232,.3); background: rgba(244,240,232,.04); }
+.gitlab-btn:hover  { border-color: #FC6D26; background: rgba(252,109,38,.06); }
+.auth-divider {
+  display: flex; align-items: center; gap: .8rem;
+  margin-bottom: 1.4rem; color: var(--dim); font-size: .75rem;
+}
+.auth-divider::before,.auth-divider::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+.auth-form { display: flex; flex-direction: column; gap: .75rem; }
+.auth-input {
+  width: 100%; padding: .85rem 1.1rem;
+  background: var(--ink3); border: 1px solid var(--border);
+  border-radius: var(--r2); color: var(--paper); font-size: .9rem;
+  transition: border-color var(--t2);
+}
+.auth-input:focus { border-color: var(--blue); }
+.auth-input::placeholder { color: var(--dim); }
+.auth-submit {
+  width: 100%; padding: .9rem;
+  background: var(--blue); color: var(--ink);
+  font-size: .8rem; letter-spacing: .15em; text-transform: uppercase;
+  font-weight: 600; border-radius: var(--r2);
+  transition: background var(--t2); margin-top: .3rem;
+}
+.auth-submit:hover { background: #60a5fa; }
+.auth-hint { font-size: .78rem; color: var(--dim); text-align: center; margin-top: .4rem; }
+.auth-hint a { color: var(--blue); text-decoration: underline; }
+
+/* Real-Time Connect Token Panel */
+.token-title-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp3);
+  margin-bottom: var(--sp3);
+  justify-content: center;
+}
+.token-icon {
+  font-size: 1.5rem;
+}
+.token-title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--paper);
+}
+.token-desc {
+  font-size: .8rem;
+  line-height: 1.6;
+  color: var(--dim);
+  text-align: center;
+  margin-bottom: var(--sp4);
+}
+.token-desc code {
+  font-family: var(--font-mono);
+  background: var(--ink3);
+  padding: .15rem .35rem;
+  border-radius: var(--r1);
+  color: var(--blue);
+}
+.social-icon {
+  flex-shrink: 0;
+}
+.social-btn svg {
+  transition: transform var(--t1);
+}
+.social-btn:hover svg {
+  transform: scale(1.1);
+}
+

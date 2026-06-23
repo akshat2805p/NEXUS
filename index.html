@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DevRA — The Neural Workspace for Developers</title>
+  <meta name="description" content="DevRA is the AI-native workspace where developers build, test, debug, and deploy — all supercharged by intelligent automation." />
+
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='28'>⚡</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/devra-variables.css" />
+  <link rel="stylesheet" href="css/devra-reset.css" />
+  <link rel="stylesheet" href="css/devra-loader.css" />
+  <link rel="stylesheet" href="css/devra-animations.css" />
+  <link rel="stylesheet" href="css/devra-nav.css" />
+  <link rel="stylesheet" href="css/devra-hero.css" />
+  <link rel="stylesheet" href="css/devra-sections.css" />
+  <link rel="stylesheet" href="css/devra-auth.css" />
+  <link rel="stylesheet" href="css/devra-dashboard.css" />
+  <link rel="stylesheet" href="css/devra-editor.css" />
+  <link rel="stylesheet" href="css/devra-contact.css" />
+  <link rel="stylesheet" href="css/devra-payment.css" />
+</head>
+
+<body>
+
+  <!-- CURSOR -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring-container">
+    <div class="cursor-ring-orbit orbit-1"></div>
+    <div class="cursor-ring-orbit orbit-2"></div>
+    <div class="cursor-ring-orbit orbit-3"></div>
+  </div>
+
+  <!-- LOADER -->
+  <div id="loader">
+    <div class="ld-logo">DevRA</div>
+    <div class="ld-sub">Neural Workspace</div>
+    <div class="ld-bar-track">
+      <div class="ld-bar-fill" id="ldBar"></div>
+    </div>
+    <div class="ld-pct" id="ldPct">0%</div>
+  </div>
+
+  <!-- SCROLL PROGRESS -->
+  <div id="scroll-progress"></div>
+
+  <!-- TOAST -->
+  <div id="toast" class="toast hidden"></div>
+
+  <!-- FULLSCREEN MOBILE MENU -->
+  <div class="menu-overlay" id="menuOverlay">
+    <a href="#features" class="menu-link">Capabilities</a>
+    <a href="#how-it-works" class="menu-link">Process</a>
+    <a href="#pricing" class="menu-link">Pricing</a>
+    <a href="#blog" class="menu-link">Insights</a>
+    <a href="contact.html" class="menu-link">Contact</a>
+    <a href="#" class="menu-link" id="menuSignIn">Sign In</a>
+    <div class="menu-footer">DevRA © 2025</div>
+  </div>
+
+  <!-- AUTH MODAL -->
+  <div id="auth-overlay" class="hidden">
+    <div id="auth-modal">
+      <button class="auth-close" id="authClose">✕</button>
+      <div class="auth-logo">DevRA</div>
+      <div class="auth-tabs" id="authTabsHeader">
+        <button class="auth-tab active" data-tab="login">Sign In</button>
+        <button class="auth-tab" data-tab="signup">Sign Up</button>
+      </div>
+      <div class="auth-socials" id="authSocialsArea">
+        <button class="social-btn google-btn" id="btnGoogle">
+          <svg class="social-icon" viewBox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/>
+            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/>
+          </svg>
+          <span>Continue with Google</span>
+        </button>
+        <button class="social-btn github-btn" id="btnGitHub">
+          <svg class="social-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.577.688.479C19.138 20.162 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+          </svg>
+          <span>Continue with GitHub</span>
+        </button>
+      </div>
+      <div class="auth-divider" id="authSocialsDivider"><span>or</span></div>
+      <div id="authFormLogin" class="auth-form">
+        <input type="email" class="auth-input" id="loginEmail" placeholder="Email address" />
+        <input type="password" class="auth-input" id="loginPass" placeholder="Password" />
+        <button class="auth-submit" id="btnEmailLogin">Sign In</button>
+        <div class="auth-hint">No account? <a href="#" onclick="switchTab('signup');return false;">Sign up free</a></div>
+      </div>
+      <div id="authFormSignup" class="auth-form hidden">
+        <input type="text" class="auth-input" id="signupName" placeholder="Full name" />
+        <input type="email" class="auth-input" id="signupEmail" placeholder="Email address" />
+        <input type="password" class="auth-input" id="signupPass" placeholder="Password (min 8 chars)" />
+        <button class="auth-submit" id="btnEmailSignup">Create Account</button>
+        <div class="auth-hint">Have an account? <a href="#" onclick="switchTab('login');return false;">Sign in</a></div>
+      </div>
+      <!-- REAL-TIME GIT CONNECT PANEL -->
+      <div id="authTokenPanel" class="auth-form hidden">
+        <div class="token-title-row">
+          <span class="token-icon" id="tokenProviderIcon">🐙</span>
+          <span class="token-title" id="tokenPanelTitle">GitHub Connect</span>
+        </div>
+        <p class="token-desc" id="tokenPanelDesc">
+          Enter your GitHub Personal Access Token (PAT) with <code>repo</code> scope to fetch your real-time profile and files.
+        </p>
+        <input type="password" class="auth-input" id="authTokenInput" placeholder="ghp_..." />
+        <button class="auth-submit" id="btnTokenVerify">Verify & Sign In</button>
+        <button class="social-btn" style="border-color:transparent; margin-top:.4rem; width:100%;" id="btnTokenDemo">Use Demo Account</button>
+        <div class="auth-hint"><a href="#" id="btnTokenBack">← Back to Social Sign In</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="dashboard" class="hidden">
+    <div id="dash-sidebar">
+      <div class="dash-logo">DevRA</div>
+      <div class="dash-user-card">
+        <div class="dash-avatar" id="dashAvatar">?</div>
+        <div class="dash-user-info">
+          <div class="dash-username" id="dashUsername">User</div>
+          <div class="dash-useremail" id="dashUserEmail">user@email.com</div>
+        </div>
+      </div>
+      <nav class="dash-nav">
+        <button class="dash-nav-item active" data-panel="files">📁 Files</button>
+        <button class="dash-nav-item" data-panel="editor">⚡ Editor</button>
+        <button class="dash-nav-item" data-panel="git">🐙 Git</button>
+        <button class="dash-nav-item" data-panel="workflows">🔁 Workflows</button>
+      </nav>
+      <button class="dash-logout" id="btnLogout">↩ Sign Out</button>
+    </div>
+
+    <div id="dash-main">
+      <!-- FILES PANEL -->
+      <div class="dash-panel active" id="panel-files">
+        <div class="panel-header">
+          <h2 class="panel-title">Your Files</h2>
+          <div class="panel-actions">
+            <button class="action-btn primary" id="btnUpload">⬆ Upload Files</button>
+            <input type="file" id="fileInput" multiple style="display:none" />
+            <button class="action-btn" id="btnNewFile">+ New File</button>
+          </div>
+        </div>
+        <div id="dropZone" class="drop-zone">
+          <div class="drop-icon">📂</div>
+          <div class="drop-text">Drop files here or click <strong>Upload Files</strong></div>
+          <div class="drop-sub">Supports .js .ts .tsx .jsx .html .css .py .json .md and more</div>
+        </div>
+        <div id="fileList" class="file-list hidden"></div>
+      </div>
+
+      <!-- EDITOR PANEL -->
+      <div class="dash-panel" id="panel-editor">
+        <div class="editor-layout">
+          <div class="editor-sidebar">
+            <div class="esb-title">Files</div>
+            <div id="editorFileTree" class="file-tree"></div>
+          </div>
+          <div class="editor-center">
+            <div class="editor-tabs" id="editorTabs"></div>
+            <div class="editor-toolbar">
+              <button class="tool-btn primary" id="btnRun">▶ Run</button>
+              <button class="tool-btn" id="btnFixBugs">🧠 Fix Bugs</button>
+              <button class="tool-btn" id="btnFormat">✨ Format</button>
+              <button class="tool-btn danger" id="btnClearOutput">✕ Clear</button>
+              <span class="editor-lang" id="editorLang">—</span>
+            </div>
+            <div class="code-editor-wrap">
+              <div class="code-editor-wrap" id="monacoContainer" style="width: 100%; height: 100%; min-height: 400px; padding: 0;"></div>
+            </div>
+          </div>
+          <div class="editor-output">
+            <div class="output-header">
+              <span>Output</span>
+              <span class="output-status" id="outputStatus">Ready</span>
+            </div>
+            <div id="outputConsole" class="output-console">
+              <div class="console-welcome">// DevRA Editor — Ready</div>
+            </div>
+            <div id="aiFix" class="ai-fix hidden">
+              <div class="ai-fix-header">🧠 AI Bug Fixer</div>
+              <div class="ai-fix-body" id="aiFixBody"></div>
+              <div class="ai-fix-actions">
+                <button class="tool-btn primary" id="btnApplyFix">✓ Apply</button>
+                <button class="tool-btn" id="btnDismissFix">✕ Dismiss</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GIT PANEL -->
+      <div class="dash-panel" id="panel-git">
+        <div class="panel-header">
+          <h2 class="panel-title">Git Integration</h2>
+        </div>
+        <div class="git-layout">
+          <div class="git-section">
+            <div class="git-section-title">Accounts</div>
+            <div class="git-providers">
+              <div class="git-provider">
+                <div class="provider-icon github">🐙</div>
+                <div>
+                  <div class="provider-name">GitHub</div>
+                  <div class="provider-status" id="ghStatus">Not connected</div>
+                </div>
+                <button class="provider-btn" id="connectGitHub">Connect</button>
+              </div>
+            </div>
+          </div>
+          <div class="git-section">
+            <div class="git-section-title">Repository</div>
+            <div class="git-repo-row" id="repoSelectorRow" style="margin-bottom:.6rem; display:none; width:100%;">
+              <select class="git-input" id="repoSelector" style="width:100%; background:var(--editor-bg); color:var(--paper); border:1px solid var(--border2); border-radius:4px; padding:.6rem; outline:none; font-family:var(--font-body);">
+                <option value="">Select a repository...</option>
+              </select>
+            </div>
+            <div class="git-repo-row">
+              <input class="git-input" id="repoOwner" placeholder="owner / username" />
+              <span class="git-sep">/</span>
+              <input class="git-input" id="repoName" placeholder="repository-name" />
+              <button class="action-btn" id="btnLoadRepo">Load Repo</button>
+            </div>
+            <div class="git-repo-row" style="margin-top:.6rem">
+              <input class="git-input" style="flex:0 0 140px" id="repoBranch" placeholder="Branch" value="main" />
+              <input class="git-input" id="githubToken" placeholder="Personal Access Token" type="password" />
+            </div>
+          </div>
+          <div class="git-section">
+            <div class="git-section-title">Commit</div>
+            <div id="changedFiles" class="changed-files">
+              <div class="no-changes">No changed files yet.</div>
+            </div>
+            <textarea class="commit-msg" id="commitMsg" placeholder="Commit message"></textarea>
+            <div class="commit-actions">
+              <button class="action-btn primary" id="btnCommit">🚀 Commit & Push</button>
+              <button class="action-btn" id="btnStageAll">Stage All</button>
+            </div>
+            <div id="commitLog" class="commit-log"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WORKFLOWS PANEL -->
+      <div class="dash-panel" id="panel-workflows">
+        <div class="panel-header">
+          <h2 class="panel-title">Workflows</h2>
+          <button class="action-btn primary" onclick="showToast('Workflow builder coming soon! 🚀')">+ New</button>
+        </div>
+        <div class="workflows-grid">
+          <div class="workflow-card">
+            <div class="wf-icon">🌅</div>
+            <div class="wf-name">Morning Routine</div>
+            <div class="wf-status active">● Active</div>
+          </div>
+          <div class="workflow-card">
+            <div class="wf-icon">📧</div>
+            <div class="wf-name">Email Digest</div>
+            <div class="wf-status active">● Active</div>
+          </div>
+          <div class="workflow-card add-card">
+            <div class="wf-icon">+</div>
+            <div class="wf-name">Add Workflow</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- LANDING PAGE — Aurora Noir                              -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div id="landing">
+
+    <!-- NAV -->
+    <nav id="mainNav">
+      <a href="#" class="nav-logo">DevRA</a>
+      <ul class="nav-links">
+        <li><a href="#features">Capabilities</a></li>
+        <li><a href="#how-it-works">Process</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#blog">Insights</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-right">
+        <button class="btn-ghost-nav" id="btnSignIn">Sign In</button>
+        <button class="btn-primary-nav" id="btnGetStarted">Get Started</button>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <section id="hero">
+      <!-- Mesh gradient background -->
+      <div class="hero-mesh">
+        <div class="hero-mesh-orb"></div>
+        <div class="hero-mesh-orb"></div>
+        <div class="hero-mesh-orb"></div>
+        <div class="hero-mesh-orb"></div>
+      </div>
+      <!-- Subtle grid overlay -->
+      <div class="hero-grid"></div>
+      <!-- Canvas for particle effect -->
+      <canvas id="heroCanvas"></canvas>
+
+      <!-- Floating status cards -->
+      <div class="hero-floating-cards">
+        <div class="floating-card">
+          <span class="fc-dot"></span>
+          <span>Build passed — 12ms</span>
+        </div>
+        <div class="floating-card">
+          <span class="fc-dot"></span>
+          <span>AI fixed 3 bugs</span>
+        </div>
+        <div class="floating-card">
+          <span class="fc-dot"></span>
+          <span>Deployed to prod</span>
+        </div>
+        <div class="floating-card">
+          <span class="fc-dot"></span>
+          <span>4 workflows active</span>
+        </div>
+      </div>
+
+      <div class="hero-content">
+        <div class="hero-eyebrow">
+          <span class="badge-dot"></span>
+          <span>The Neural Workspace for Developers</span>
+        </div>
+        <h1 class="hero-title">Your code.<br><span class="text-gradient">Supercharged.</span></h1>
+        <p class="hero-sub">Build, test, debug, and deploy — all in one AI-native environment. DevRA understands your code and automates the rest.</p>
+        <div class="hero-cta">
+          <button class="btn-primary-hero magnetic-btn" id="heroGetStarted"><span>Start Building Free →</span></button>
+          <button class="btn-ghost-hero magnetic-btn" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})"><span>Explore Capabilities</span></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCROLL TEXT REVEAL -->
+    <section class="scroll-text-section" id="scrollTextReveal">
+      <div class="scroll-text-content">
+        <h2 class="text-reveal" id="textRevealHeading">
+          <em>Stop</em> switching between tools. DevRA brings your entire <em>workflow</em> into one intelligent space that thinks alongside you.
+        </h2>
+      </div>
+    </section>
+
+    <!-- LOGO MARQUEE -->
+    <div class="marquee-track">
+      <img class="marquee-logo" src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="React" height="36">
+      <img class="marquee-logo" src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg" alt="Figma" height="36">
+      <img class="marquee-logo" src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Stripe_Logo%2C_revised_2016.svg" alt="Stripe" height="36">
+      <img class="marquee-logo" src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Slack_icon_2019.svg" alt="Slack" height="36">
+      <img class="marquee-logo" src="https://upload.wikimedia.org/wikipedia/commons/4/45/Notion_app_logo.png" alt="Notion" height="36">
+      <img class="marquee-logo" src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub" height="36">
+      <img class="marquee-logo" src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Docker_%28container_engine%29_logo.svg" alt="Docker" height="36">
+      <img class="marquee-logo" src="https://upload.wikimedia.org/wikipedia/commons/3/3f/V8_JavaScript_engine_logo_2.svg" alt="V8" height="36">
+      <img class="marquee-logo" src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Node.js_logo.svg" alt="Node.js" height="36">
+      <img class="marquee-logo" src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Vitejs-logo.svg" alt="Vite" height="36">
+      <!-- Duplicate for seamless loop -->
+      <img class="marquee-logo" src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="React" height="36">
+      <img class="marquee-logo" src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg" alt="Figma" height="36">
+      <img class="marquee-logo" src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Stripe_Logo%2C_revised_2016.svg" alt="Stripe" height="36">
+      <img class="marquee-logo" src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Slack_icon_2019.svg" alt="Slack" height="36">
+      <img class="marquee-logo" src="https://upload.wikimedia.org/wikipedia/commons/4/45/Notion_app_logo.png" alt="Notion" height="36">
+      <img class="marquee-logo" src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub" height="36">
+      <img class="marquee-logo" src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Docker_%28container_engine%29_logo.svg" alt="Docker" height="36">
+      <img class="marquee-logo" src="https://upload.wikimedia.org/wikipedia/commons/3/3f/V8_JavaScript_engine_logo_2.svg" alt="V8" height="36">
+      <img class="marquee-logo" src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Node.js_logo.svg" alt="Node.js" height="36">
+      <img class="marquee-logo" src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Vitejs-logo.svg" alt="Vite" height="36">
+    </div>
+
+    <!-- CAPABILITIES (Features) -->
+    <section id="features">
+      <div class="section-container">
+        <div class="section-eyebrow">✦ Capabilities</div>
+        <h2 class="section-title">Everything you need.<br><em>Nothing you don't.</em></h2>
+        <p class="section-body">Six powerful modules that work together seamlessly. Each one designed to eliminate friction from your development workflow.</p>
+        <div class="features-grid">
+          <div class="feature-card reveal" data-accent="indigo">
+            <div class="fc-icon">🧠</div>
+            <h3 class="fc-name">AI Code Generation</h3>
+            <p class="fc-desc">Describe what you need in plain English. DevRA generates production-ready code with proper error handling, types, and documentation — not just snippets.</p>
+            <span class="fc-tag">Intelligence</span>
+          </div>
+          <div class="feature-card reveal" data-accent="rose">
+            <div class="fc-icon">🔍</div>
+            <h3 class="fc-name">Smart Debugging</h3>
+            <p class="fc-desc">AI analyzes your errors, suggests fixes, and applies them in one click. Like having a senior engineer reviewing every line.</p>
+            <span class="fc-tag">Diagnostics</span>
+          </div>
+          <div class="feature-card reveal" data-accent="amber">
+            <div class="fc-icon">⚡</div>
+            <h3 class="fc-name">Visual Workflows</h3>
+            <p class="fc-desc">Drag, drop, connect. Build automation pipelines visually with 200+ context-aware triggers that fire at exactly the right moment.</p>
+            <span class="fc-tag">Automation</span>
+          </div>
+          <div class="feature-card reveal" data-accent="cyan">
+            <div class="fc-icon">🔗</div>
+            <h3 class="fc-name">200+ Integrations</h3>
+            <p class="fc-desc">Connect to GitHub, Slack, Notion, Gmail, Figma, Jira, and 194 more tools. One-click OAuth — no configuration required.</p>
+            <span class="fc-tag">Connectivity</span>
+          </div>
+          <div class="feature-card reveal" data-accent="purple">
+            <div class="fc-icon">👥</div>
+            <h3 class="fc-name">Real-time Collaboration</h3>
+            <p class="fc-desc">Code together with your team in real-time. Shared workspaces, live cursors, instant syncing, and built-in code review tools.</p>
+            <span class="fc-tag">Teamwork</span>
+          </div>
+          <div class="feature-card reveal" data-accent="green">
+            <div class="fc-icon">🛡️</div>
+            <h3 class="fc-name">Enterprise Security</h3>
+            <p class="fc-desc">SOC 2 compliant. End-to-end encryption. Self-hosted options. Your code never leaves your infrastructure if you don't want it to.</p>
+            <span class="fc-tag">Trust</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how-it-works">
+      <div class="section-container">
+        <div class="section-eyebrow">✦ Process</div>
+        <h2 class="section-title">From zero to deployed<br>in <em>three steps.</em></h2>
+        <p class="section-body">No complex setup. No configuration hell. Go from idea to production in minutes, not weeks.</p>
+        <div class="steps-grid">
+          <div class="step-card reveal">
+            <div class="step-num">01</div>
+            <h3 class="step-title">Connect Your Stack</h3>
+            <p class="step-desc">Link GitHub, GitLab, or Bitbucket with one click. Import existing projects or start fresh from a template. DevRA understands your codebase instantly.</p>
+          </div>
+          <div class="step-card reveal">
+            <div class="step-num">02</div>
+            <h3 class="step-title">Build with AI</h3>
+            <p class="step-desc">Write code in a full-featured editor with AI assistance. Generate functions, fix bugs, refactor legacy code — all with natural language commands.</p>
+          </div>
+          <div class="step-card reveal">
+            <div class="step-num">03</div>
+            <h3 class="step-title">Deploy & Automate</h3>
+            <p class="step-desc">Push to production with confidence. Set up CI/CD workflows, automated testing, and monitoring — DevRA handles the ops so you focus on building.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDITOR SHOWCASE -->
+    <section id="editor-section">
+      <div class="section-container">
+        <div class="editor-showcase">
+          <div class="editor-info reveal-left">
+            <div class="section-eyebrow">✦ Built-In IDE</div>
+            <h2 class="section-title">Code meets<br><em>intelligence.</em></h2>
+            <p class="section-body">A full-featured code editor in your browser. Write, run, debug, and commit — all without leaving DevRA. Powered by Monaco Editor with AI superpowers.</p>
+            <div class="editor-features-list">
+              <span>Syntax Highlighting</span>
+              <span>AI Bug Fixer</span>
+              <span>Git Integration</span>
+              <span>Multi-File Support</span>
+              <span>Live Output</span>
+            </div>
+            <div style="margin-top:1.5rem;">
+              <button class="btn-primary-hero" id="tryEditorBtn">Open Editor →</button>
+            </div>
+          </div>
+          <div class="editor-preview reveal-right">
+            <div class="editor-preview-bar">
+              <span class="ep-dot"></span>
+              <span class="ep-dot"></span>
+              <span class="ep-dot"></span>
+              <span class="ep-tab">workflow.js</span>
+            </div>
+            <pre class="editor-preview-code"><span class="code-line"><span class="code-keyword">const</span> workflow = <span class="code-fn">createFlow</span>({</span>
+<span class="code-line">  name: <span class="code-string">'Morning Digest'</span>,</span>
+<span class="code-line">  trigger: <span class="code-string">'schedule:daily:8am'</span>,</span>
+<span class="code-line">  steps: [</span>
+<span class="code-line">    <span class="code-fn">fetchEmails</span>({ unread: <span class="code-keyword">true</span> }),</span>
+<span class="code-line">    <span class="code-fn">summarizeWithAI</span>(),</span>
+<span class="code-line">    <span class="code-fn">sendToSlack</span>(<span class="code-string">'#daily-brief'</span>),</span>
+<span class="code-line">  ]</span>
+<span class="code-line">});</span>
+<span class="code-line"></span>
+<span class="code-line"><span class="code-comment">// Runs every morning at 8 AM ⚡</span></span>
+<span class="code-line">workflow.<span class="code-fn">deploy</span>();</span></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section id="stats">
+      <div class="stats-container">
+        <div class="stat-item reveal">
+          <div class="si-num" data-target="200">0</div>
+          <div class="si-label">Integrations</div>
+        </div>
+        <div class="stat-item reveal">
+          <div class="si-num" data-target="4200000">0</div>
+          <div class="si-label">Daily Runs</div>
+        </div>
+        <div class="stat-item reveal">
+          <div class="si-num" data-target="12">0</div>
+          <div class="si-label">Hours Saved/Week</div>
+        </div>
+        <div class="stat-item reveal">
+          <div class="si-num" data-target="50000">0</div>
+          <div class="si-label">Developers</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing">
+      <div class="section-container">
+        <div class="section-eyebrow">✦ Investment</div>
+        <h2 class="section-title">Simple pricing.<br><em>No surprises.</em></h2>
+        <p class="section-body">Start free. Scale when you're ready. Every plan includes AI-powered features from day one.</p>
+        <div class="pricing-grid">
+          <div class="pricing-card reveal">
+            <div class="pc-plan">Starter</div>
+            <div class="pc-price"><sup>₹</sup>0<span>/mo</span></div>
+            <p class="pc-desc">Perfect for exploring and personal projects.</p>
+            <ul class="pc-features">
+              <li>5 active workflows</li>
+              <li>500 AI-assisted runs/month</li>
+              <li>15 app integrations</li>
+              <li>Community support</li>
+              <li>Basic code editor</li>
+            </ul>
+            <button class="pc-btn pc-btn-ghost" onclick="openAuth()">Get Started Free</button>
+          </div>
+          <div class="pricing-card featured reveal">
+            <div class="pc-badge">Most Popular</div>
+            <div class="pc-plan">Pro</div>
+            <div class="pc-price gold"><sup>₹</sup>499<span>/mo</span></div>
+            <p class="pc-desc">For power users and freelance developers.</p>
+            <ul class="pc-features">
+              <li>Unlimited workflows</li>
+              <li>50K AI-assisted runs/month</li>
+              <li>200+ app integrations</li>
+              <li>AI Copilot — full access</li>
+              <li>Priority support</li>
+              <li>Advanced debugging</li>
+            </ul>
+            <button class="pc-btn pc-btn-solid" onclick="openAuth()">Start 14-Day Trial</button>
+          </div>
+          <div class="pricing-card reveal">
+            <div class="pc-plan">Teams</div>
+            <div class="pc-price"><sup>₹</sup>1,499<span>/mo</span></div>
+            <p class="pc-desc">For growing teams and startups.</p>
+            <ul class="pc-features">
+              <li>Everything in Pro</li>
+              <li>5 team members included</li>
+              <li>Shared workflows & templates</li>
+              <li>Admin & access controls</li>
+              <li>Dedicated support</li>
+              <li>Custom integrations</li>
+            </ul>
+            <button class="pc-btn pc-btn-ghost" onclick="openAuth()">Start Team Trial</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REVIEWS -->
+    <section id="reviews">
+      <div class="section-container">
+        <div class="section-eyebrow">✦ Testimonials</div>
+        <h2 class="section-title">Trusted by developers<br><em>who ship.</em></h2>
+        <p class="section-body">Hear from the teams and individuals who've transformed their workflows with DevRA.</p>
+
+        <div class="reviews-scroll-container">
+          <div class="reviews-track">
+            <div class="review-card">
+              <div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+              <p class="rv-text">"DevRA cut our deployment time from 2 hours to 12 minutes. The AI debugging alone saved our launch day."</p>
+              <div class="rv-author">
+                <div class="rv-av">PR</div>
+                <div>
+                  <div class="rv-name">Priya Rajan</div>
+                  <div class="rv-role">Engineering Lead, Zetta</div>
+                </div>
+              </div>
+            </div>
+            <div class="review-card">
+              <div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+              <p class="rv-text">"I connected 8 tools in 10 minutes flat. No API docs, no config files. Just one-click OAuth and done. Magical."</p>
+              <div class="rv-author">
+                <div class="rv-av">AK</div>
+                <div>
+                  <div class="rv-name">Arjun Khanna</div>
+                  <div class="rv-role">CTO, Launchpad.io</div>
+                </div>
+              </div>
+            </div>
+            <div class="review-card">
+              <div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+              <p class="rv-text">"The AI Copilot is like pair-programming with someone who knows every framework. It fixed a bug I'd been stuck on for days."</p>
+              <div class="rv-author">
+                <div class="rv-av">SS</div>
+                <div>
+                  <div class="rv-name">Sneha Sharma</div>
+                  <div class="rv-role">Full Stack Developer</div>
+                </div>
+              </div>
+            </div>
+            <div class="review-card">
+              <div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+              <p class="rv-text">"We replaced 4 separate tools with DevRA. One workspace, one subscription, zero context switching. Our team velocity doubled."</p>
+              <div class="rv-author">
+                <div class="rv-av">MK</div>
+                <div>
+                  <div class="rv-name">Mohit Kumar</div>
+                  <div class="rv-role">VP Engineering, Neos</div>
+                </div>
+              </div>
+            </div>
+            <div class="review-card">
+              <div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+              <p class="rv-text">"As a solo developer, DevRA feels like having an entire DevOps team. Workflows, CI/CD, monitoring — all automated."</p>
+              <div class="rv-author">
+                <div class="rv-av">DP</div>
+                <div>
+                  <div class="rv-name">Deepa Patel</div>
+                  <div class="rv-role">Indie Developer</div>
+                </div>
+              </div>
+            </div>
+            <!-- Duplicate for seamless scroll -->
+            <div class="review-card">
+              <div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+              <p class="rv-text">"DevRA cut our deployment time from 2 hours to 12 minutes. The AI debugging alone saved our launch day."</p>
+              <div class="rv-author">
+                <div class="rv-av">PR</div>
+                <div>
+                  <div class="rv-name">Priya Rajan</div>
+                  <div class="rv-role">Engineering Lead, Zetta</div>
+                </div>
+              </div>
+            </div>
+            <div class="review-card">
+              <div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+              <p class="rv-text">"I connected 8 tools in 10 minutes flat. No API docs, no config files. Just one-click OAuth and done. Magical."</p>
+              <div class="rv-author">
+                <div class="rv-av">AK</div>
+                <div>
+                  <div class="rv-name">Arjun Khanna</div>
+                  <div class="rv-role">CTO, Launchpad.io</div>
+                </div>
+              </div>
+            </div>
+            <div class="review-card">
+              <div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+              <p class="rv-text">"The AI Copilot is like pair-programming with someone who knows every framework. It fixed a bug I'd been stuck on for days."</p>
+              <div class="rv-author">
+                <div class="rv-av">SS</div>
+                <div>
+                  <div class="rv-name">Sneha Sharma</div>
+                  <div class="rv-role">Full Stack Developer</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOG / INSIGHTS -->
+    <section id="blog">
+      <div class="section-container">
+        <div class="section-eyebrow">✦ Insights</div>
+        <h2 class="section-title">From the <em>engineering blog.</em></h2>
+        <p class="section-body">Deep dives into AI-assisted development, workflow automation, and the future of building software.</p>
+        <div class="blog-grid">
+          <a href="#" class="blog-card reveal">
+            <div class="blog-card-img">
+              <div style="width:100%;height:100%;background:linear-gradient(135deg, rgba(99,102,241,0.15), rgba(168,85,247,0.1), rgba(236,72,153,0.05));display:flex;align-items:center;justify-content:center;font-size:4rem;">🧠</div>
+            </div>
+            <div class="blog-card-body">
+              <span class="blog-tag" data-color="indigo">AI Engineering</span>
+              <h3 class="blog-card-title">How Neural Code Assistants Are Reshaping Software Development</h3>
+              <p class="blog-card-excerpt">The shift from autocomplete to contextual code generation is fundamentally changing how we write software. We explore the architecture behind DevRA's AI engine and what makes it different from GPT wrappers.</p>
+              <div class="blog-card-meta">
+                <span>📅 Nov 12, 2025</span>
+                <span>⏱ 8 min read</span>
+              </div>
+            </div>
+          </a>
+          <a href="#" class="blog-card reveal">
+            <div class="blog-card-img">
+              <div style="width:100%;height:100%;background:linear-gradient(135deg, rgba(236,72,153,0.12), rgba(245,158,11,0.08));display:flex;align-items:center;justify-content:center;font-size:3rem;">⚡</div>
+            </div>
+            <div class="blog-card-body">
+              <span class="blog-tag" data-color="rose">Productivity</span>
+              <h3 class="blog-card-title">5 Workflows That Eliminate 10+ Hours of Manual Work Weekly</h3>
+              <p class="blog-card-excerpt">Real automation recipes from teams using DevRA to eliminate their most time-consuming development tasks.</p>
+              <div class="blog-card-meta">
+                <span>📅 Oct 28, 2025</span>
+                <span>⏱ 5 min read</span>
+              </div>
+            </div>
+          </a>
+          <a href="#" class="blog-card reveal">
+            <div class="blog-card-img">
+              <div style="width:100%;height:100%;background:linear-gradient(135deg, rgba(245,158,11,0.1), rgba(34,211,238,0.08));display:flex;align-items:center;justify-content:center;font-size:3rem;">🔗</div>
+            </div>
+            <div class="blog-card-body">
+              <span class="blog-tag" data-color="amber">Architecture</span>
+              <h3 class="blog-card-title">Building a Plugin System That Scales to 200+ Integrations</h3>
+              <p class="blog-card-excerpt">A technical deep dive into DevRA's integration architecture, from OAuth flows to webhook management.</p>
+              <div class="blog-card-meta">
+                <span>📅 Oct 15, 2025</span>
+                <span>⏱ 12 min read</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="cta-section">
+      <div class="cta-mesh">
+        <div class="cta-mesh-orb"></div>
+        <div class="cta-mesh-orb"></div>
+        <div class="cta-mesh-orb"></div>
+      </div>
+      <canvas id="ctaCanvas"></canvas>
+      <div class="cta-content">
+        <h2 class="cta-title reveal">Start building<br><em>the future.</em></h2>
+        <p class="cta-sub reveal">Free forever for individuals. No credit card required. Set up in under 2 minutes.</p>
+        <div class="cta-btns reveal">
+          <button class="btn-primary-hero magnetic-btn" onclick="openAuth()">Get Started Free →</button>
+          <a href="contact.html" class="btn-ghost-hero">Talk to Sales</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="footer">
+      <div class="footer-inner">
+        <div>
+          <div class="footer-logo">DevRA</div>
+          <p class="footer-tagline">The AI-native workspace where developers build faster, ship sooner, and automate everything in between.</p>
+          <div class="footer-socials">
+            <a href="#" class="footer-social" aria-label="Twitter">𝕏</a>
+            <a href="#" class="footer-social" aria-label="GitHub">⌘</a>
+            <a href="#" class="footer-social" aria-label="LinkedIn">in</a>
+            <a href="#" class="footer-social" aria-label="Discord">◆</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Product</div>
+          <ul>
+            <li><a href="#features">Capabilities</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#how-it-works">Process</a></li>
+            <li><a href="#editor-section">Editor</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Company</div>
+          <ul>
+            <li><a href="#">About</a></li>
+            <li><a href="#blog">Blog</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="#">Careers</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Resources</div>
+          <ul>
+            <li><a href="#">Documentation</a></li>
+            <li><a href="#">API Reference</a></li>
+            <li><a href="#">Changelog</a></li>
+            <li><a href="#">Status</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Legal</div>
+          <ul>
+            <li><a href="#">Privacy</a></li>
+            <li><a href="#">Terms</a></li>
+            <li><a href="#">Security</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 DevRA. The Neural Workspace for Developers.</span>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Status</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Firebase Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-database-compat.js"></script>
+
+  <!-- Monaco Editor Loader -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs/loader.min.js"></script>
+
+  <!-- App Scripts -->
+  <script src="js/firebase-config.js"></script>
+  <script src="js/devra-state.js"></script>
+  <script src="js/devra-auth.js"></script>
+  <script src="js/devra-ui.js"></script>
+  <script src="js/devra-editor.js"></script>
+  <script src="js/devra-compiler.js"></script>
+  <script src="js/devra-git.js"></script>
+  <script src="js/devra-scroll.js"></script>
+  <script src="js/devra-contact.js"></script>
+  <script src="js/devra-canvas.js"></script>
+  <script src="js/devra-main.js"></script>
+
+  <!-- Payment Modal -->
+  <div id="payment-overlay" class="hidden">
+    <div class="payment-modal">
+      <button class="payment-modal-close" onclick="document.getElementById('payment-overlay').classList.add('hidden')">✕</button>
+      <div class="payment-header">
+        <div class="payment-icon">💳</div>
+        <h3 class="payment-title">Upgrade to DevRA Pro</h3>
+        <p class="payment-subtitle">You've reached your free prompt limit. Upgrade to unlock unlimited power.</p>
+      </div>
+      
+      <div class="payment-price-box">
+        <div class="payment-price">₹1499<span>/mo</span></div>
+      </div>
+      
+      <div class="payment-form">
+        <div class="payment-input-group">
+          <label class="payment-label">Card Number</label>
+          <input type="text" class="payment-input" placeholder="0000 0000 0000 0000">
+        </div>
+        <div class="payment-row">
+          <div class="payment-input-group">
+            <label class="payment-label">Expiry</label>
+            <input type="text" class="payment-input" placeholder="MM/YY">
+          </div>
+          <div class="payment-input-group">
+            <label class="payment-label">CVC</label>
+            <input type="text" class="payment-input" placeholder="123">
+          </div>
+        </div>
+        <button class="payment-submit" onclick="simulatePayment()">Pay ₹1499 securely</button>
+      </div>
+      
+      <div class="payment-footer">
+        <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+        Secured by Stripe
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function simulatePayment() {
+      const btn = document.querySelector('.payment-submit');
+      btn.textContent = 'Processing...';
+      setTimeout(() => {
+        btn.textContent = 'Success! ✨';
+        btn.style.background = 'var(--success)';
+        setTimeout(() => {
+          document.getElementById('payment-overlay').classList.add('hidden');
+          AppState.promptCount = 0; // Reset prompt count
+        }, 1500);
+      }, 1500);
+    }
+  </script>
+</body>
+
+</html>
