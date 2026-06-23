@@ -1,4 +1,4 @@
-# Nexus (DevRA)
+# Nexus
 
 Nexus is a full-stack, real-time messaging and fintech application built for seamless communication and modern integrations. It features real-time chat, video calls, a finance dashboard, watch parties, and fully customizable user profiles.
 
@@ -39,8 +39,8 @@ Nexus is a full-stack, real-time messaging and fintech application built for sea
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/akshat2805p/DevRA.git
-cd DevRA
+git clone https://github.com/akshat2805p/Nexus.git
+cd Nexus
 ```
 
 ### 2. Backend Setup
