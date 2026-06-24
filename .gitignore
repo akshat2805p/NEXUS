@@ -42,3 +42,8 @@ dist/
 # Cache
 .cache/
 .git/
+
+# amplify
+.amplify
+amplify_outputs*
+amplifyconfiguration*
